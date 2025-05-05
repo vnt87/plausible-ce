@@ -23,32 +23,18 @@
 1. Clone this repository:
 
     ```console
-    $ git clone -b v3.0.1 --single-branch https://github.com/plausible/community-edition plausible-ce
-    Cloning into 'plausible-ce'...
-    remote: Enumerating objects: 13, done.
-    remote: Counting objects: 100% (10/10), done.
-    remote: Compressing objects: 100% (9/9), done.
-    remote: Total 13 (delta 0), reused 7 (delta 0), pack-reused 3 (from 1)
-    Receiving objects: 100% (13/13), done.
-
-    $ cd plausible-ce
-
-    $ ls -1
-    README.md
-    clickhouse/
-    compose.yml
+    git clone -b v3.0.1 --single-branch https://github.com/plausible/community-edition plausible-ce
+    cd plausible-ce
+    ls -1
     ```
 
 1. Create and configure your [environment](https://docs.docker.com/compose/environment-variables/) file:
 
     ```console
-    $ touch .env
-    $ echo "BASE_URL=https://plausible.example.com" >> .env
-    $ echo "SECRET_KEY_BASE=$(openssl rand -base64 48)" >> .env
-    
-    $ cat .env
-    BASE_URL=https://plausible.example.com
-    SECRET_KEY_BASE=As0fZsJlUpuFYSthRjT5Yflg/NlxkFKPRro72xMLXF8yInZ60s6xGGXYVqml+XN1
+    touch .env
+    echo "BASE_URL=https://plausible.example.com" >> .env
+    echo "SECRET_KEY_BASE=$(openssl rand -base64 48)" >> .env
+    cat .env
     ```
 
     Make sure `$BASE_URL` is set to the actual domain where you plan to host the service. The domain must have a DNS entry pointing to your server for proper resolution and automatic Let's Encrypt TLS certificate issuance. More on that in the next step.
@@ -56,10 +42,10 @@
 1. Expose Plausible server to the web with a [compose override file:](https://github.com/plausible/community-edition/wiki/compose-override)
 
     ```sh
-    $ echo "HTTP_PORT=80" >> .env
-    $ echo "HTTPS_PORT=443" >> .env
+    echo "HTTP_PORT=80" >> .env
+    echo "HTTPS_PORT=443" >> .env
 
-    $ cat > compose.override.yml << EOF
+    cat > compose.override.yml << EOF
     services:
       plausible:
         ports:
@@ -73,7 +59,7 @@
 1. Start the services with Docker Compose:
 
     ```console
-    $ docker compose up -d
+    docker compose up -d
     ```
 
 1. Visit your instance at `$BASE_URL` and create the first user.
